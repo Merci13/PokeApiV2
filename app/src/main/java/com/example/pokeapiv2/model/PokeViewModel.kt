@@ -9,6 +9,7 @@ import com.example.pokeapiv2.api.ApiPokemonRowItem
 import com.example.pokeapiv2.data.PokemonRepository
 
 
+
 class PokeViewModel(repository: PokemonRepository) : ViewModel() {
     private val pokeLiveData = MutableLiveData<String>()
     private val pokemonResult: LiveData<PokemonSearchResult> = Transformations.map(pokeLiveData) {
@@ -18,6 +19,7 @@ class PokeViewModel(repository: PokemonRepository) : ViewModel() {
     init {
         pokeLiveData.postValue("lol")//default value to make the LiveData to start searching and charging the data
     }
+
 
     val rows: LiveData<PagedList<ApiPokemonRowItem>> =
         Transformations.switchMap(pokemonResult) { it.data }

@@ -20,7 +20,9 @@ import com.example.pokeapiv2.db.PokemonLocalCache
 import com.example.pokeapiv2.db.PokemonsData
 import com.example.pokeapiv2.model.PokeViewModel
 import com.example.pokeapiv2.model.PokemonCustomAdapter
+import com.example.pokeapiv2.model.PokemonSearchResult
 import com.example.pokeapiv2.model.ViewModelFactory
+import org.koin.core.context.startKoin
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val dao: PokemonDao = PokemonDataBase.getInstance(this).repoPokemon()
+        //it is started the Koin module
+        startKoin {
+
+        }
 
 
         //get the view model
