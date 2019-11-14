@@ -1,4 +1,4 @@
-package com.example.pokeapiv2.model;
+package com.example.pokeapiv2.dependencyInjection;
 
 import android.os.Handler;
 import android.os.Looper;

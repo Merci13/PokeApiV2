@@ -1,33 +1,27 @@
 package com.example.pokeapiv2.userInterface
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokeapiv2.R
 import com.example.pokeapiv2.api.ApiPokemonRowItem
-import com.example.pokeapiv2.data.PokemonRepository
 import com.example.pokeapiv2.db.PokemonDao
 import com.example.pokeapiv2.db.PokemonDataBase
-import com.example.pokeapiv2.db.PokemonLocalCache
-import com.example.pokeapiv2.db.PokemonsData
 import com.example.pokeapiv2.model.PokeViewModel
 import com.example.pokeapiv2.model.PokemonCustomAdapter
-import com.example.pokeapiv2.model.PokemonSearchResult
-import com.example.pokeapiv2.model.ViewModelFactory
-import org.koin.core.context.startKoin
-import java.util.concurrent.Executors
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: PokeViewModel
+    val viewModel: PokeViewModel  by viewModel()
     private lateinit var list: RecyclerView
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var adapterCustom: PokemonCustomAdapter
@@ -36,23 +30,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val dao: PokemonDao = PokemonDataBase.getInstance(this).repoPokemon()
-        //it is started the Koin module
-        startKoin {
-
-        }
 
 
-        //get the view model
-        this.viewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(
-                PokemonRepository(
-                    this,
-                    PokemonsData(), PokemonLocalCache(dao, Executors.newSingleThreadExecutor())
-                )
-            )
-        ).get(PokeViewModel::class.java)
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
 

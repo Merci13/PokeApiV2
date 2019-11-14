@@ -17,6 +17,7 @@
 package com.example.pokeapiv2.db
 
 import com.example.pokeapiv2.api.ApiPokemonRowItem
+import com.example.pokeapiv2.dependencyInjection.AppExecutors
 
 import java.util.concurrent.Executor
 
@@ -26,14 +27,14 @@ import java.util.concurrent.Executor
  */
 class PokemonLocalCache(
     private val repoDao: PokemonDao,
-    private val ioExecutor: Executor
+    private val ioExecutor: AppExecutors
 ) {
 
     /**
      * Insert a list of ApiPokemonRowItem in the database, on a background thread.
      */
     fun insert(rows: List<ApiPokemonRowItem>, insertFinished: () -> Unit) {
-        ioExecutor.execute {
+        ioExecutor.diskIO().execute {
 
             repoDao.insert(rows)
             insertFinished()
